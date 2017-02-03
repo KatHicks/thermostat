@@ -28,13 +28,11 @@ Thermostat.prototype.switchPowerSaving = function() {
 };
 
 Thermostat.prototype.up = function(number) {
-  var newTemp = Math.min(this.getDegrees() + number, this._getMaxTemp());
-  this._setDegrees(newTemp);
+  this._setDegrees(this.getDegrees() + number);
 };
 
 Thermostat.prototype.down = function(number) {
-  var newTemp = Math.max(this.getDegrees() - number, this._MIN_TEMP);
-  this._setDegrees(newTemp);
+  this._setDegrees(this.getDegrees() + number);
 };
 
 Thermostat.prototype.reset = function() {
@@ -52,8 +50,13 @@ Thermostat.prototype.seeEnergyUsage = function() {
 };
 
 // PRIVATE
+Thermostat.prototype._check = function(number) {
+  if (number < this._MIN_TEMP) {throw 'You cannot change temperature as minimum temperature is 10 degrees'}
+  if (number > this._getMaxTemp()) { throw 'You cannot change temperature as maximum temperature is 25 degrees when power saving is on'}
+};
 
 Thermostat.prototype._setDegrees = function(number) {
+  this._check(number);
   this._degrees = number;
 };
 

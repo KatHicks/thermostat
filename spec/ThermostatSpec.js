@@ -21,12 +21,12 @@ describe('Thermostat', function() {
     });
   });
 
-  describe('#switchPowerSaving', function() {
-    it('should have a function switchPowerSaving', function() {
-      thermostat.switchPowerSaving();
-      expect(thermostat._powerSaving).toEqual(false);
-    });
-  });
+  // describe('#switchPowerSaving', function() {
+  //   it('should have a function switchPowerSaving', function() {
+  //     thermostat.switchPowerSaving();
+  //     expect(thermostat._powerSaving).toEqual(false);
+  //   });
+  // });
 
   describe("#up", function(){
     it('should increase temperature with an up function', function(){
@@ -38,12 +38,12 @@ describe('Thermostat', function() {
       thermostat.up(6);
       expect(thermostat.getDegrees()).toEqual(25);
     });
-
-    it("should have a limit of 32 degrees with power saving off", function(){
-      thermostat.switchPowerSaving();
-      thermostat.up(13);
-      expect(thermostat.getDegrees()).toEqual(32);
-    });
+    // 
+    // it("should have a limit of 32 degrees with power saving off", function(){
+    //   thermostat.switchPowerSaving();
+    //   thermostat.up(13);
+    //   expect(thermostat.getDegrees()).toEqual(32);
+    // });
   });
 
   describe("#down", function(){
