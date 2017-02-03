@@ -2,6 +2,10 @@ $( document ).ready(function() {
     var thermostat = new Thermostat();
     changeValue(20);
 
+    if (thermostat.seeEnergyUsage === 'low-usage') {
+      $( "#progress-bar" ).css()
+    }
+
     function changeValue(num) {
       $( "#progress-bar" ).attr('value', num);
       $( "#temp-display" ).text(num);
