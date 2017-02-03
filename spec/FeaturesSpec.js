@@ -48,13 +48,13 @@ describe('Features', function() {
     expect(thermostat.getDegrees()).toEqual(32);
   });
 
-  // Power saving mode is on by default
+  // power saving mode is on by default
 
   it("Power saving mode is on by default", function(){
     expect(thermostat._powerSaving).toBe(true);
   });
 
-  // You can reset the temperature to 20 with a reset function
+  // you can reset the temperature to 20 with a reset function
 
   it("You can reset the temperature to 20 with a reset function", function(){
     thermostat.up(3);
@@ -62,7 +62,7 @@ describe('Features', function() {
     expect(thermostat.getDegrees()).toEqual(20);
   });
 
-  // You can ask about the thermostat's current energy usage: < 18 is low-usage, < 25 is medium-usage, anything else is high-usage.
+  // you can ask about the thermostat's current energy usage: < 18 is low-usage, < 25 is medium-usage, anything else is high-usage.
 
   it('should display a energey usage message', function(){
     expect(thermostat.seeEnergyUsage()).toEqual('medium-usage');
