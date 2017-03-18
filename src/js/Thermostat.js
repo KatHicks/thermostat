@@ -3,14 +3,15 @@
 function Thermostat() {
   this._degrees = 20;
   this._powerSaving = true;
+
+  this._MIN_TEMP = 10;
+  this._MAX_TEMP_SAVINGS = 25;
+  this._MAX_TEMP_FULL = 32;
+  this._DEFAULT_TEMP = 20;
+  this._MEDIUM_USAGE_LIMIT = 25;
+  this._LOW_USAGE_LIMIT = 18;
 }
 
-Thermostat.MIN_TEMP = 10;
-Thermostat.MAX_TEMP_SAVINGS = 25;
-Thermostat.MAX_TEMP_FULL = 32;
-Thermostat.DEFAULT_TEMP = 20;
-Thermostat.HIGH_USAGE_LIMIT = 25;
-Thermostat.LOW_USAGE_LIMIT = 18;
 
 // PUBLIC
 
@@ -27,23 +28,21 @@ Thermostat.prototype.switchPowerSaving = function() {
 };
 
 Thermostat.prototype.up = function(number) {
-  var newTemp = Math.min(this.getDegrees() + number, this._setMaxTemp());
-  this._setDegrees(newTemp);
+  this._setDegrees(this.getDegrees() + number);
 };
 
 Thermostat.prototype.down = function(number) {
-  var newTemp = Math.max(this.getDegrees() - number, Thermostat.MIN_TEMP);
-  this._setDegrees(newTemp);
+  this._setDegrees(this.getDegrees() + number);
 };
 
 Thermostat.prototype.reset = function() {
-  this._setDegrees(Thermostat.DEFAULT_TEMP);
+  this._setDegrees(this._DEFAULT_TEMP);
 };
 
 Thermostat.prototype.seeEnergyUsage = function() {
-  if (this.getDegrees() < Thermostat.LOW_USAGE_LIMIT) {
+  if (this.getDegrees() < this._LOW_USAGE_LIMIT) {
     return 'low-usage';
-  } else if (this.getDegrees() < Thermostat.HIGH_USAGE_LIMIT) {
+  } else if (this.getDegrees() < this._MEDIUM_USAGE_LIMIT) {
     return 'medium-usage';
   } else {
     return 'high-usage';
@@ -51,11 +50,16 @@ Thermostat.prototype.seeEnergyUsage = function() {
 };
 
 // PRIVATE
+Thermostat.prototype._check = function(number) {
+  if (number < this._MIN_TEMP) {throw 'You cannot change temperature as minimum temperature is 10 degrees'}
+  if (number > this._getMaxTemp()) { throw 'You cannot change temperature as maximum temperature is 25 degrees when power saving is on'}
+};
 
 Thermostat.prototype._setDegrees = function(number) {
+  this._check(number);
   this._degrees = number;
 };
 
-Thermostat.prototype._setMaxTemp = function() {
-  return (this._powerSaving) ? Thermostat.MAX_TEMP_SAVINGS : Thermostat.MAX_TEMP_FULL;
+Thermostat.prototype._getMaxTemp = function() {
+  return (this._powerSaving) ? this._MAX_TEMP_SAVINGS : this._MAX_TEMP_FULL;
 };
