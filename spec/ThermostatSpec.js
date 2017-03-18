@@ -15,6 +15,10 @@ describe('Thermostat', function() {
     expect(thermostat._powerSaving).toBeDefined();
   })
 
+  it("should have power saving mode on by default", function(){
+    expect(thermostat._powerSaving).toBe(true);
+  });
+
   describe('#getDegrees', function() {
     it('should have a function getDegrees', function() {
       expect(thermostat.getDegrees()).toEqual(20);
