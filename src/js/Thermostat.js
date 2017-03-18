@@ -32,7 +32,7 @@ Thermostat.prototype.up = function(number) {
 };
 
 Thermostat.prototype.down = function(number) {
-  this._setDegrees(this.getDegrees() + number);
+  this._setDegrees(this.getDegrees() - number);
 };
 
 Thermostat.prototype.reset = function() {
@@ -52,7 +52,7 @@ Thermostat.prototype.seeEnergyUsage = function() {
 // PRIVATE
 Thermostat.prototype._check = function(number) {
   if (number < this._MIN_TEMP) {throw 'You cannot change temperature as minimum temperature is 10 degrees'}
-  if (number > this._getMaxTemp()) { throw 'You cannot change temperature as maximum temperature is 25 degrees when power saving is on'}
+  if (number > this._getMaxTemp()) { throw 'You cannot change temperature as maximum temperature has been reached'}
 };
 
 Thermostat.prototype._setDegrees = function(number) {
